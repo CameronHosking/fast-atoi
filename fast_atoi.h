@@ -21,7 +21,7 @@ static const uint64_t offsets[21] = {0,'0',
         '0'*11111111111111111111ull};
 
 //convert char *s to an unsigned 64bit integer
-uint32_t atoui32(const char *s)
+uint64_t atoui64(const char *s)
 {
     uint64_t ret = s[0];
     uint8_t len = 1;
@@ -41,7 +41,7 @@ uint32_t atoui32(const char *s)
     {
         ret = ret*10 + s[len++];
     }
-    return ret-offsets[len];
+    return ret-uint32_t(offsets[len]);
 }
 
 //convert char *s to an unsigned 64bit integer
@@ -78,7 +78,7 @@ uint64_t atoui64(const char *str, uint8_t len)
 //convert char *s to an unsigned 32bit integer
 //len is the number of numeric characters
 //s does not require the trailing '\0'
-uint32_t strToSmallUint(const char *str, uint8_t len)
+uint32_t atoui32(const char *str, uint8_t len)
 {
     uint32_t value = 0;
     switch (len) { // handle up to 10 digits, assume we're 32-bit
@@ -93,5 +93,5 @@ uint32_t strToSmallUint(const char *str, uint8_t len)
             case  2:    value += str[len- 2] * 10;
             case  1:    value += str[len- 1];
         }
-    return value - offsets[len];
+    return value - uint32_t(offsets[len]);
 }
